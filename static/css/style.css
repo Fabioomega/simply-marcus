@@ -1,0 +1,224 @@
+/* RESET CSS START */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+* {
+    margin: 0;
+}
+
+body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* RESET CSS END */
+
+/* FONT START */
+.roboto-400 {
+    font-family: "Roboto", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+}
+
+/* FONT END */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    font-family: "Roboto", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #160e10;
+}
+
+.rounded-corners {
+    border-radius: 15px;
+}
+
+.main-panel {
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    width: 80%;
+    max-width: 900px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.25);
+    background: linear-gradient(135deg, #3b2a45, #1f141e);
+}
+
+/* Updated conversation panel styles */
+.conversation-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding-right: 10px;
+    /* Add padding to the right side */
+
+    /* Custom scrollbar */
+    scrollbar-width: thin;
+    /* For Firefox */
+    scrollbar-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.5);
+    /* Thumb, Track for Firefox */
+}
+
+/* Webkit-based browsers (Chrome, Safari) */
+.conversation-panel::-webkit-scrollbar {
+    width: 8px;
+    /* Adjust width of the scrollbar */
+}
+
+.conversation-panel::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5);
+    /* Track color */
+    border-radius: 10px;
+}
+
+.conversation-panel::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    /* Thumb color */
+    border-radius: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.5);
+    /* Adds border for a defined thumb */
+}
+
+.conversation-panel::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.35);
+    /* Thumb hover effect */
+}
+
+.conversation-panel::-webkit-scrollbar-corner {
+    background-color: transparent;
+}
+
+
+.dialogue-box {
+    display: flex;
+    color: #fcfcfc;
+}
+
+.dialogue {
+    font-size: 1.1rem;
+    max-width: 75%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    background-color: rgba(128, 128, 128, 0.35);
+    margin-bottom: 15px;
+    word-wrap: break-word;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.answer .dialogue {
+    background-color: rgba(46, 46, 46, 0.35);
+}
+
+.answer {
+    justify-content: flex-start;
+}
+
+.query {
+    justify-content: flex-end;
+}
+
+#chat-input {
+    font-size: 1rem;
+    padding: 12px 15px;
+    color: #fcfcfc;
+    border: none;
+    background-color: rgba(128, 128, 128, 0.35);
+    box-shadow: 0px 0px 5px 2px rgba(255, 255, 255, 0.75);
+    border-radius: 15px;
+    width: 100%;
+    margin-top: 10px;
+    outline: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#chat-input:focus {
+    background-color: rgba(128, 128, 128, 0.55);
+}
+
+/* Animation for chat bubbles */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Full height */
+.full-size {
+    width: 100%;
+    height: 100%;
+}
+
+.logo-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.logo-holder {
+    display: flex;
+    justify-content: center;
+    padding: 20px 30px;
+    border-radius: 50%;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
+    /* Subtle shadow */
+    background: linear-gradient(135deg, #2e3b4e, #1c2634);
+    /* Darker, more neutral gradient */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 55px;
+    /* Adjusted size for balance */
+    transition: transform 0.3s ease, filter 0.3s ease;
+    /* Animation for hover */
+    /* filter: brightness(0) contrast(100%) grayscale(100%); */
+}
+
+.logo-lsiim {
+    padding: 10px 0px;
+    width: 80px;
+    filter: invert();
+}
+
+
+/* Hover effect for logo-holder */
+.logo-holder:hover {
+    transform: scale(1.1);
+    /* Slight zoom effect */
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.5);
+    /* Brighter shadow on hover */
+}
+
+/* Hover effect for the logo */
+.logo:hover {
+    transform: rotate(5deg);
+    /* Slight rotation for a subtle effect */
+}
