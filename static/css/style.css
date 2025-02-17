@@ -181,6 +181,12 @@ body {
     left: 20px;
 }
 
+@media (max-width: 768px) {
+    .logo-panel {
+        display: none;
+    }
+}
+
 .logo-holder {
     display: flex;
     justify-content: center;
