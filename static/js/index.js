@@ -126,5 +126,4 @@ function scrollConversationPanel() {
 
 function addToConversation(role, content) {
     conversation.push({ 'role': role, 'content': content });
-    console.log(conversation);
 }
