@@ -70,6 +70,7 @@ body {
     padding-right: 10px;
     /* Add padding to the right side */
 
+    scroll-behavior: smooth;
     /* Custom scrollbar */
     scrollbar-width: thin;
     /* For Firefox */

@@ -1,6 +1,6 @@
 from ollama import AsyncClient
-from typing import TypedDict, Optional
-from history import NoChatHistory
+from typing import TypedDict, Optional, List
+from history import ChatHistory, Chat
 from environment_loader import Environment
 
 
@@ -17,6 +17,7 @@ class ChatBot:
         system_prompt: str = "",
         use_system_prompt: bool = False,
         model: str = "qwen2.5:7b",
+        max_conversation_size: int = 40,
         introduction: Optional[str] = None,
         environment_path: Optional[str] = None,
     ):
@@ -27,18 +28,21 @@ class ChatBot:
             use_system_prompt = bool(env.get("use_system_prompt", use_system_prompt))
             model = str(env.get("model", model))
             introduction = str(env.get("introduction", introduction))
+            max_conversation_size = str(
+                env.get("max_conversation_size", max_conversation_size)
+            )
 
         self.async_client = AsyncClient(host=host)
-        self.history = NoChatHistory(
+        self.history = ChatHistory(
             system_prompt,
             use_system_prompt=use_system_prompt,
             introduction=introduction,
         )
         self.model = model
 
-    async def async_chat(self, text: str):
+    async def async_chat(self, chat_history: List[Chat]):
         async for part in await self.async_client.chat(
-            self.model, messages=self.history.get_history(text), stream=True
+            self.model, messages=self.history.create_history(chat_history), stream=True
         ):
             yield part["message"]["content"]
 

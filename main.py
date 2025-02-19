@@ -5,10 +5,16 @@ from fastapi.responses import StreamingResponse
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 from chat import ChatBot
+from typing import List
+
+
+class Chat(BaseModel):
+    role: str
+    content: str
 
 
 class ChatBotInput(BaseModel):
-    text: str
+    messages: list[Chat]
 
 
 app = FastAPI()
@@ -19,7 +25,7 @@ chatbot = ChatBot(environment_path="env.json")
 
 @app.post("/chat")
 async def chat(inp: ChatBotInput):
-    return StreamingResponse(chatbot.async_chat(inp.text))
+    return StreamingResponse(chatbot.async_chat(list(map(dict, inp.messages))))
 
 
 @app.delete("/history")

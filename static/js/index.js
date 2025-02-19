@@ -2,6 +2,8 @@ const chatInput = $("#chat-input")[0];
 const utf8Decoder = new TextDecoder('UTF-8');
 const conversationPanel = $(".conversation-panel")[0];
 let is_reading_from_stream = false;
+let conversation = [];
+let temporary_string = "";
 
 $(() => {
     fetch("/history").then(
@@ -13,6 +15,8 @@ chatInput.addEventListener("keyup", ({ key, shiftKey }) => {
     if (key === "Enter" && !shiftKey && !is_reading_from_stream) {
         if (!handleCommand(chatInput.value)) {
             addUserDialogue(chatInput.value);
+
+            scrollConversationPanel();
             chat(chatInput.value);
         }
 
@@ -65,10 +69,12 @@ function readReader(reader, chunk_callback, done_callback) {
 }
 
 function chat(text) {
+    addToConversation('user', text);
+
     fetch("/chat", {
         method: "POST", headers: {
             'Content-Type': 'application/json'
-        }, body: JSON.stringify({ 'text': text })
+        }, body: JSON.stringify({ 'messages': conversation })
     }).then(
         (value) => {
             let assistantDialogue = createDialog({ role: "assistant", content: "" });
@@ -76,10 +82,18 @@ function chat(text) {
             let textNode = assistantDialogue.childNodes[0];
 
             is_reading_from_stream = true;
+            temporary_string = "";
+
             let reader = value.body.getReader();
+
             readReader(reader, (value) => {
-                textNode.innerHTML = preprocessContent(textNode.innerHTML + utf8Decoder.decode(value));
-            }, () => { is_reading_from_stream = false; });
+                const new_chunk = utf8Decoder.decode(value);
+
+                temporary_string += new_chunk;
+                textNode.innerHTML = preprocessContent(textNode.innerHTML + new_chunk);
+
+                scrollConversationPanel();
+            }, () => { is_reading_from_stream = false; addToConversation('assistant', temporary_string) });
         })
 }
 
@@ -104,4 +118,13 @@ function handleCommand(text) {
     }
 
     return false;
+}
+
+function scrollConversationPanel() {
+    conversationPanel.scrollTop = conversationPanel.scrollHeight;
+}
+
+function addToConversation(role, content) {
+    conversation.push({ 'role': role, 'content': content });
+    console.log(conversation);
 }
